@@ -1,3 +1,5 @@
+package Kakao_Internship_2019;
+
 import java.util.Stack;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Stack;
  *
  * </solution>
  */
-class Solution {
+class Solution_크레인인형뽑기 {
 
     static int size;
     static Stack<Integer>[] map;
