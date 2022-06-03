@@ -1,62 +1,42 @@
+import java.util.ArrayList;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
-/**
- * [구현, 스택]
- *
- * <solution>
- *     바구니는 top을 확인해서 같은모양이면 pop
- *     다른모양이면 push
- *
- *     크레인으로 인형을 꺼낼때에는 stack에 들어있는지 확인하고,
- *     들어있으면 pop()으로 꺼낸다.
- *
- * </solution>
- */
 class Solution {
+    private StringTokenizer st;
+    private ArrayList<Character> op;
+    private ArrayList<Long> val;
 
-    static int size;
-    static Stack<Integer>[] map;
-    static Stack<Integer> basket;
-    static int answer;
-    
-    public int solution(int[][] board, int[] moves) {
-        answer = 0;
-        size = board.length;
-        map = new Stack[size];
-        basket = new Stack<>();
+    public long solution(String expression) {
+        long answer = 0;
 
-        for(int i=0; i<size; i++) map[i] = new Stack<>();
+        op = new ArrayList<Character>();
+        val = new ArrayList<Long>();
+        StringBuilder sb = new StringBuilder();
 
-        for(int i=size-1; i>=0; i--){
-            for(int j=0; j<size; j++){
-                if(board[i][j] != 0) map[j].push(board[i][j]);
+        int index = 0;
+        while(index < expression.length()){
+            if(isOperator(index, expression)){
+                op.add(expression.charAt(index));
+                val.add(Long.valueOf(sb.toString()));
+                sb = new StringBuilder();
+            } else {
+                sb.append(expression.charAt(index));
             }
+            index++;
         }
-
-        for(int index : moves) {
-            index = index -1;
-            getFace(index);
-        }
+        val.add(Long.valueOf(sb.toString()));
+        for(Character c : op) System.out.println(c);
+        for(Long l : val) System.out.println(l);
 
 
         return answer;
     }
 
-    private void getFace(int index) {
-        
-        if(map[index].isEmpty()) return;
-        pushBaket(map[index].pop());
-    }
-
-    private void pushBaket(Integer face) {
-        if(!basket.isEmpty() && basket.peek() == face) {
-            basket.pop();
-            answer += 2;
-        } else basket.push(face);
-
+    boolean isOperator(int end, String expression) {
+        if (expression.charAt(end) == '+' || expression.charAt(end) == '-' || expression.charAt(end) == '*'){
+            return true;
+        } else
+            return false;
     }
 }
-
-
-
-
