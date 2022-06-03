@@ -37,7 +37,7 @@ import java.util.StringTokenizer;
  * 하지만 런타임에러, 시간초과
  *
  */
-class Solution_표편집_2 {
+class Solution_표편집2_level3 {
 
     public String solution(int n, int k, String[] cmd) {
         StringBuilder answer = new StringBuilder();

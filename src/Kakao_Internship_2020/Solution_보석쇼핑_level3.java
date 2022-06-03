@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package Kakao_Internship_2020;
+
 import java.util.HashMap;
 
 /**
@@ -14,7 +15,7 @@ import java.util.HashMap;
  * 보석이 모두 차있는 경우 구간을 더 줄일 수 있는지 확인해야한다.
  */
 
-class Solution {
+class Solution_보석쇼핑_level3 {
     private HashMap<String, Integer> map;
     private HashMap<String, Integer> mine;
     private int size;

@@ -14,7 +14,7 @@ import java.util.Stack;
  *
  * </solution>
  */
-class Solution_크레인인형뽑기 {
+class Solution_크레인인형뽑기_level1 {
 
     static int size;
     static Stack<Integer>[] map;

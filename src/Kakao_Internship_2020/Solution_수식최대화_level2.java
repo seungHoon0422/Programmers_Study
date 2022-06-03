@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
  *     
  * </solution>
  */
-class Solution_수식최대화 {
+class Solution_수식최대화_level2 {
     private StringTokenizer st;
     private ArrayList<Character> op;
     private ArrayList<Long> val;

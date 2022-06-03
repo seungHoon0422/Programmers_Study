@@ -23,7 +23,7 @@ import java.util.Queue;
  *
  */
 
-class Solution_거리두기확인하기 {
+class Solution_거리두기확인하기_level2 {
 
     static final int SIZE = 5;
     private int[] dr = {1,-1,0,0};

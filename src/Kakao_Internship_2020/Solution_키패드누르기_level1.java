@@ -5,7 +5,7 @@ package Kakao_Internship_2020;
  *  왼손은 * (3,0), 오른손은 #(3,2)에서 시작
  *
  */
-class Solution_키패드누르기 {
+class Solution_키패드누르기_level1 {
     public String solution(int[] numbers, String hand) {
         StringBuilder answer = new StringBuilder();
 

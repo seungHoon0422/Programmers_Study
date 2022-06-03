@@ -43,7 +43,7 @@ import java.util.StringTokenizer;
  * </solution>
  *
  */
-class Solution_표편집 {
+class Solution_표편집_level3 {
 
     public String solution(int n, int k, String[] cmd) {
         StringBuilder answer = new StringBuilder();
