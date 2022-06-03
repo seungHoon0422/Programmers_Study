@@ -1,9 +1,25 @@
+package Kakao_Internship_2019;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
-class Solution {
+/**
+ * [순열, 문자열 파싱]
+ * 
+ * <solution>
+ *     연사자와 피연산자를 구분하여 저장하는 과정에서 시간이 오래걸림
+ *     string tokenizer를 사용해서 시도했으나 
+ *     투포인터를 사용해서 연산자인지 확인하면서 저장
+ *     
+ *     연산자가 3개밖에 없으므로 나올 수 있는 종류는 총 6가지
+ *     따라서 순열코드를 작성하지 않고, hash형식으로 저장한다음 실행
+ *     
+ *     연산자 index를 실행할 때 피연산자 리스트에서는 index, index+1에 해당
+ *     index위치에 연산 결과를 저장시키고, index+1 요소 삭제
+ *     
+ * </solution>
+ */
+class Solution_수식최대화 {
     private StringTokenizer st;
     private ArrayList<Character> op;
     private ArrayList<Long> val;
