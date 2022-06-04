@@ -1,3 +1,5 @@
+package Kakao_Internship_2020;
+
 import java.util.Arrays;
 
 /**
@@ -15,7 +17,7 @@ import java.util.Arrays;
  * 메모이제이션 방법으로 변경
  * </solution>
  */
-class Solution {
+class Solution_경주로건설_level3_2 {
     int N;
     private boolean[][] visited;
     private int[][] cost;
