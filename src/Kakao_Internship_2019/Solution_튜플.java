@@ -1,9 +1,10 @@
-    import java.util.ArrayList;
-    import java.util.Arrays;
-    import java.util.Collections;
-    import java.util.StringTokenizer;
+package Kakao_Internship_2019;
 
-    class Solution {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
+    class Solution_튜플 {
 
         private StringTokenizer st;
         ArrayList<ArrayList<Integer>> datas;
