@@ -1,50 +1,44 @@
-import java.util.ArrayList;
+/**
+ * 문제요약
+ * 다리를 건너는데 최대 k개의 돌만큼 뛰어넘을 수 있다.
+ * 사람들 무제한으로 건널 수 있고, 돌을 밟으면 내구도가 1씩감소
+ * 최대 몇명까지 건널 수 있는지
+ *
+ * <solution>
+ * 생각해보니까 연속된 돌다리 k개의 합이 최소인 부분에서 무조건
+ * 못건너게 되어있다.
+ * </solution>
+ */
 
 class Solution {
-    int answer;
+    public int solution(int[] stones, int k) {
+        int answer = 0;
 
-    public int solution(String[] user_id, String[] banned_id) {
-        answer = 0;
-        search(0, new String[banned_id.length],user_id, banned_id);
+        int start = 0;
+        int end = 987654321;
 
-        return answer;
-    }
-
-    private void search(int cnt, String[] banList, String[] user_id, String[] banned_id) {
-        // 기저조건
-        if(cnt == banned_id.length){
-            answer++;
-            return;
-        }
-
-
-loop1:  for (String s : user_id) {
-            if (isPossible(s, banned_id[cnt])) {
-                for (String name : banList) {
-                    if (name.equals(s))
-                        continue loop1;
-                }
-                banList[cnt] = s;
-                search(cnt + 1, banList, user_id, banned_id);
-
-
+        while(start <= end){
+            int mid = (start+end) >> 1;
+            if(isPossible(mid, stones,k)){
+                start = mid+1;
+                answer = Math.max(answer, mid);
+            } else {
+                end = mid-1;
             }
         }
-        // 벤가능한 아이디 확인
-
-        // 해당 아이디가 banlist에 이미 들어있는지 확인
-        // 이미 들어있으면 return
-        // 안들어있으면 cnt 추가하고, 다음 작업
+        return start-1;
     }
 
-    boolean isPossible(String user, String ban) {
-
-        if(user.length() != ban.length()) return false;
-        for(int index = 0; index < ban.length(); index++){
-            if(ban.charAt(index) == '*') continue;
-            else if(user.charAt(index) != ban.charAt(index)) return false;
+    private boolean isPossible(int mid, int[] stones, int k) {
+        int cnt = 0;
+        for(int i=0; i<stones.length; i++){
+            if(stones[i] < mid) cnt++;
+            else {
+                cnt=0;
+            }
+            if(cnt == k) return false;
         }
-
         return true;
     }
+
 }
