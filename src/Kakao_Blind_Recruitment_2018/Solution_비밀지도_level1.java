@@ -7,7 +7,11 @@ package Kakao_Blind_Recruitment_2018;
 두 비밀지도를 합쳐 전체 지도를 완성
 <solution>
  두개의 비밀지도를 합치는 과정은 | 연산의 결과
- 그후 2로 나누면서 지도출력
+ toBinaryString method를 사용해서 이진수로 변환
+ replaceAll을 통해 한번에 문자 변경
+
+ !! 마지막에 숫자가 2^n-1보다 작으면 n 크기만큼 형식이 맞춰지지 않아
+ 길이를 맞추는 작업 필요
  </solution>
  */
 class Solution_비밀지도_level1 {
