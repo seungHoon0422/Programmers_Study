@@ -12,7 +12,7 @@ package Kakao_Internship_2019;
  * </solution>
  */
 
-class Solution_징검다리건너기 {
+class Solution_징검다리건너기_level3 {
     public int solution(int[] stones, int k) {
         int answer = 0;
 

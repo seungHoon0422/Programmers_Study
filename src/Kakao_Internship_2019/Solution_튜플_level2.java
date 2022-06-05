@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-    class Solution_튜플 {
+    class Solution_튜플_level2 {
 
         private StringTokenizer st;
         ArrayList<ArrayList<Integer>> datas;

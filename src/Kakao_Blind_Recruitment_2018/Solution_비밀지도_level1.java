@@ -1,3 +1,5 @@
+package Kakao_Blind_Recruitment_2018;
+
 /**
 
 문제요약 :
@@ -8,7 +10,7 @@
  그후 2로 나누면서 지도출력
  </solution>
  */
-class Solution {
+class Solution_비밀지도_level1 {
     public String[] solution(int n, int[] arr1, int[] arr2) {
         String[] answer = new String[n];
 

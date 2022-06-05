@@ -20,7 +20,7 @@ import java.util.Set;
  * [[ map보다 중복을 확인할 때에는 set을 사용하자!! ]]
  *
  */
-class Solution_불량사용자 {
+class Solution_불량사용자_level3 {
     int answer;
     Map<Set<String>, Boolean> banMap;
     public int solution(String[] user_id, String[] banned_id) {
