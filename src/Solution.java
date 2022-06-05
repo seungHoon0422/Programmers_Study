@@ -1,57 +1,49 @@
-    import java.util.ArrayList;
-    import java.util.Arrays;
-    import java.util.Collections;
-    import java.util.StringTokenizer;
+import java.util.ArrayList;
 
-    class Solution {
+class Solution {
+    int answer;
 
-        private StringTokenizer st;
-        ArrayList<ArrayList<Integer>> datas;
-        // input : {{2},{2,1},{2,1,3},{2,1,3,4}}
-        public int[] solution(String s) {
-            ArrayList<Integer> answer = new ArrayList<>();
-            s = s.substring(1,s.length()-1);
-            ArrayList<Integer> leftBracket = new ArrayList<>();
-            ArrayList<Integer> rightBracket = new ArrayList<>();
-            datas = new ArrayList<>();
+    public int solution(String[] user_id, String[] banned_id) {
+        answer = 0;
+        search(0, new String[banned_id.length],user_id, banned_id);
 
-            for(int i=0; i<s.length(); i++){
-                if(s.charAt(i) == '{') leftBracket.add(i);
-                if(s.charAt(i) == '}') rightBracket.add(i);
-            }
-
-            for(int i=0; i<leftBracket.size(); i++){
-                String set = s.substring(leftBracket.get(i)+1, rightBracket.get(i));
-                StringTokenizer st = new StringTokenizer(set, ",");
-                ArrayList<Integer> list = new ArrayList<>();
-                while(st.hasMoreElements()){
-                    list.add(Integer.parseInt(st.nextToken()));
-                }
-                datas.add(list);
-            }
-            Collections.sort(datas, (a,b) -> a.size()-b.size());
-
-            int index = 0;
-            for(ArrayList<Integer> list : datas){
-                for(int value : list) {
-                    if(!answer.contains(value)) {
-                        answer.add(value);
-                        break;
-                    }
-                }
-            }
-            int[] result = new int[answer.size()];
-            for(int i = 0; i < answer.size(); i++)
-                result[i] = answer.get(i);
-
-
-
-            return result;
-        }
+        return answer;
     }
 
+    private void search(int cnt, String[] banList, String[] user_id, String[] banned_id) {
+        // 기저조건
+        if(cnt == banned_id.length){
+            answer++;
+            return;
+        }
 
 
+loop1:  for (String s : user_id) {
+            if (isPossible(s, banned_id[cnt])) {
+                for (String name : banList) {
+                    if (name.equals(s))
+                        continue loop1;
+                }
+                banList[cnt] = s;
+                search(cnt + 1, banList, user_id, banned_id);
 
+            }
+        }
+        // 벤가능한 아이디 확인
 
+        // 해당 아이디가 banlist에 이미 들어있는지 확인
+        // 이미 들어있으면 return
+        // 안들어있으면 cnt 추가하고, 다음 작업
+    }
 
+    boolean isPossible(String user, String ban) {
+
+        if(user.length() != ban.length()) return false;
+        for(int index = 0; index < ban.length(); index++){
+            if(ban.charAt(index) == '*') continue;
+            else if(user.charAt(index) != ban.charAt(index)) return false;
+        }
+
+        return true;
+    }
+}
