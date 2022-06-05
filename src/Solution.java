@@ -27,6 +27,7 @@ loop1:  for (String s : user_id) {
                 banList[cnt] = s;
                 search(cnt + 1, banList, user_id, banned_id);
 
+
             }
         }
         // 벤가능한 아이디 확인
