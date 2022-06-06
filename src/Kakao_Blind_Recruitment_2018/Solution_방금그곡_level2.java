@@ -16,11 +16,17 @@ import java.util.ArrayList;
      <solution>
       음악에 대한 정보를 저장하기 위해 class를 활용
      멜로디 확인은 contains를 통해 확인하고, 재생 시간만큼 악보를 늘려놓는다.
-     음악을 하나씩 확인해서 배열에 저장시키고, 우선순위 큐 사용??
+
+     멜로디를 확인할 때 #붙은 놈들 처리가 너무문제...
+     카카오는 문제풀다보면 replaceAll을 자주 사용해야 쉽게 풀린다.
+     #붙은 음은 아예 다른음으로 치환시켜버린다!!
+     결국 길이만큼 자를때 원래 멜로디 크기를 사용할 수 있게
+
+     입력되는 멜로디에도 처리
      </solution>
      */
 
-    class Solution {
+    class Solution_방금그곡_level2 {
 
         ArrayList<Song> songs;
         public String solution(String m, String[] musicinfos) {
