@@ -1,4 +1,8 @@
-import java.util.*;
+package Kakao_Blind_Recruitment_2018;
+
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 /**
 
@@ -15,7 +19,7 @@ import java.util.*;
  </solution>
 
  */
-class Solution {
+class Solution_프렌즈4블록_level2 {
     private int answer;
     private char[][] map;
     private int[] dr = {0,0,1,1};

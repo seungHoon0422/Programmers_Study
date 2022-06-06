@@ -21,7 +21,7 @@ S,D,T 는 각 1제곱, 2제곱, 3제곱
 
  */
 
-class Solution_다트게임 {
+class Solution_다트게임_level1 {
     private ArrayList<Score> scores;
     private ArrayList<Integer> result;
     public int solution(String dartResult) {
