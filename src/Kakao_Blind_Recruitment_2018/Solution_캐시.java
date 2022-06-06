@@ -1,6 +1,25 @@
-import java.util.*;
+package Kakao_Blind_Recruitment_2018;
 
-class Solution {
+import java.util.ArrayList;
+import java.util.Collections;
+/**
+
+문제 요약 :
+ LRU스케줄링 구현,
+ cache의 크기가 주어지고, 입력되는 값들이 주어졌을 때
+ hit는 1, miss는 5로 게산
+ 총 걸린시간 ?
+
+ <solution>
+ cache를 구현할 때 사용할 효율적인 자료구조로
+ pq, dq, map다 고려해봤지만 size가 최대 30이므로
+ miss되고 cache가 꽉 찼을 때 sort를 진행하는 방식으로 처리
+
+ </solution>
+
+
+ */
+class Solution_캐시 {
     public int solution(int cacheSize, String[] cities) {
         int answer = 0;
 
@@ -26,9 +45,6 @@ class Solution {
                 cache.add(new City(city, time));
                 time += 5;
             }
-
-
-
         }
         return time;
     }
