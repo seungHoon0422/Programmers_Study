@@ -1,96 +1,114 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
 /**
 
- 문제 요약 :
- 한번의 턴에 같은모양의 인형을 터트린다.
- 인접해있는 모든 인형을 터트린 후 빈공간이 없게 아래로 땡긴다.
- 더이상 터트릴 인형이 없을때까지 진행
- 지워진 블록의 수를 리턴
+문제요약 :
+ 음악의 재생시간, 끝난시간, 악보가 제공
+ 악보 길이를 보고 반복된 횟수를 확인할 수 있다.
+ 멜로디가 주어졌을 때 해당 멜로디가 포함된 음악을 찾아야 한다.
+ 결과가 여러음악이 나온 경우, 재생된 시간이 제일 긴 음악을 선택하고,
+ 길이도 같으면 시간이 빠른 음악을 고른다.
 
  <solution>
-
- 한번의 턴에 모든 인형을 탐색하고, 인형을 떨구는 작업 실행
-
+  음악에 대한 정보를 저장하기 위해 class를 활용
+ 멜로디 확인은 contains를 통해 확인하고, 재생 시간만큼 악보를 늘려놓는다.
+ 음악을 하나씩 확인해서 배열에 저장시키고, 우선순위 큐 사용??
  </solution>
-
  */
+
 class Solution {
-    private int answer;
-    private char[][] map;
-    private int[] dr = {0,0,1,1};
-    private int[] dc = {0,1,0,1};
-    private boolean[][] removable;
-    Map<Integer, int[]> poss;
-    public int solution(int n, int m, String[] b) {
-        answer = 0;
-        map = new char[n][m];
 
-        for(int i=0; i<n; i++) map[i] = b[i].toCharArray();
+    ArrayList<Song> songs;
+    public String solution(String m, String[] musicinfos) {
+        String answer = "";
 
-        int removed = 0;
-        while(true){
+        songs = new ArrayList<>();
+        initSongs(m, musicinfos);
+        PriorityQueue<Song> pq = new PriorityQueue<>();
+        ArrayList<Song> possible = new ArrayList<>();
 
-
-            removable = new boolean[n][m];
-
-            for(int i=0; i<n-1; i++){
-                for(int j=0; j<m-1; j++){
-                    if(map[i][j] != ' ') {
-                        bfs(i,j,map[i][j],n,m);
-                    }
-                }
+        for(Song song : songs) {
+            if(song.melody.contains(m)) {
+                possible.add(song);
             }
-            int count = 0;
-            for(int i=0; i<n; i++)
-                for(int j=0; j<m; j++){
-                    if(removable[i][j]) {
-                        count++;
-                        map[i][j] = ' ';
-                    }
-                }
-            if(count == 0 ) break;
-            else answer += count;
-            shiftToys(n,m);
         }
-
-        return answer;
-    }
-
-    private void shiftToys(int r, int c) {
-
-        for(int i=0; i<c; i++){
-            Queue<Character> q = new LinkedList<>();
-            for(int j=r-1; j>=0; j--){
-                if(map[j][i] == ' ') {
-                    for(int k=j-1; k>=0; k--){
-                        if(map[k][i] != ' ') {
-                            map[j][i] = map[k][i];
-                            map[k][i] = ' ';
-                            break;
-                        }
-                    }
+        if(possible.size() == 0) return "(None)";
+        Song result = songs.get(0);
+        for(int i=1; i<possible.size(); i++) {
+            Song o = possible.get(i);
+            if(result.runningTime < o.runningTime) result = o;
+            else if(result.runningTime == o.runningTime){
+                if(result.sh > o.sh) result = o;
+                else if(result.sh == o.sh){
+                    if ( result.sm > o.sm ) result = o;
                 }
             }
         }
+
+
+        return result.title;
     }
 
-    private void bfs(int r, int c, char type, int n, int m) {
+    private void initSongs(String m, String[] musicinfos) {
+        for(String data : musicinfos) {
+            StringTokenizer st = new StringTokenizer(data, ",");
+            String startTime = st.nextToken();
+            String endTime = st.nextToken();
+            String title = st.nextToken();
+            String originalMelody = st.nextToken();
+            String simple = originalMelody.replaceAll("#", "");
 
-        for (int i = 0; i < 4; i++) {
-            int nr = r + dr[i];
-            int nc = c + dc[i];
-            if (nr < 0 || nr >= n || nc < 0 || nc >= m) return;
-            if (map[nr][nc] != type) return;
+            st = new StringTokenizer(startTime, ":");
+            int sh = Integer.parseInt(st.nextToken());
+            int sm = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(endTime, ":");
+            int eh = Integer.parseInt(st.nextToken());
+            int em = Integer.parseInt(st.nextToken());
+            int runningTime = (eh - sh) * 60 + (em - sm);
+            System.out.println("running Time : "+runningTime);
+            StringBuilder melody = new StringBuilder();
+            int i=0;
+            int rest = runningTime;
+            for(i=0; i<runningTime/simple.length(); i++){
+                melody.append(originalMelody);
+                rest -= simple.length();
+            }
+            System.out.println("rest : " + rest);
+            int index = 0;
+            while(rest > 0) {
+                if(originalMelody.charAt(index) == '#') melody.append(originalMelody.charAt(index++));
+                else {
+                    melody.append(originalMelody.charAt(index++));
+                    rest--;
+                }
+            }
+            if(originalMelody.charAt(index) == '#')
+                melody.append(originalMelody.charAt(index));
+            System.out.println(melody.toString());
+            Song song = new Song(sh,sm,eh,em,runningTime, title, melody.toString());
+            songs.add(song);
+        }
+
+    }
+
+    static class Song {
+        int sh, sm, eh, em;
+        int runningTime;
+        String title, melody;
+
+        public Song(int sh, int sm, int eh, int em, int runningTime, String title, String melody) {
+            this.sh = sh;
+            this.sm = sm;
+            this.eh = eh;
+            this.em = em;
+            this.runningTime = runningTime;
+            this.title = title;
+            this.melody = melody;
         }
 
 
-        // if it's possible
-        for (int i = 0; i < 4; i++) {
-            int nr = r + dr[i];
-            int nc = c + dc[i];
-            removable[nr][nc] = true;
-        }
 
     }
 }
