@@ -1,7 +1,9 @@
-import java.sql.Array;
+package Kakao_Blind_Recruitment_2018;
+
 import java.util.ArrayList;
 
 /**
+[구현]
 
 문제요약 :
 S,D,T 는 각 1제곱, 2제곱, 3제곱
@@ -19,7 +21,7 @@ S,D,T 는 각 1제곱, 2제곱, 3제곱
 
  */
 
-class Solution {
+class Solution_다트게임 {
     private ArrayList<Score> scores;
     private ArrayList<Integer> result;
     public int solution(String dartResult) {
