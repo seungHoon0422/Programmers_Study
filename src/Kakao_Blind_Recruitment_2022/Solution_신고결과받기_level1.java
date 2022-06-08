@@ -1,3 +1,5 @@
+package Kakao_Blind_Recruitment_2022;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -5,11 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-class Solution {
-
-
-
-
+class Solution_신고결과받기_level1 {
 
     private HashMap<String, Integer> count;
     private HashMap<String, HashSet<String>> callers;

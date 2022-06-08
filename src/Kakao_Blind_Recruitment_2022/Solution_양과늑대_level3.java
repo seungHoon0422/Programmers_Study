@@ -1,7 +1,9 @@
-import java.sql.Array;
-import java.util.*;
+package Kakao_Blind_Recruitment_2022;
 
-class Solution {
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution_양과늑대_level3 {
     private int[] info;
     private int n;
     private int answer;
