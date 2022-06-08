@@ -1,49 +1,47 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+
+문제요약:
+ 각 알파벳에 대한 색인번호가 주어지고,
+ 문자열이 주어졌을 때 색인번호 안에있는 가장 큰 문자열을 파악하고,
+ 그다음문자가 없을때에는 해당 색인번호를 출력하고,
+ temp에 저장되어있는 문자열을 색인 번호에 등록
+
+
+
+ */
 class Solution {
-    public int solution(int cacheSize, String[] cities) {
-        int answer = 0;
+    private HashMap<String, Integer> map;
 
-        ArrayList<City> cache = new ArrayList<>();
+    public int[] solution(String msg) {
+        int[] answer = {};
+        ArrayList<Integer> result = new ArrayList<>();
+        char[] arr = msg.toCharArray();
 
-        if(cacheSize == 0) return cities.length * 5;
-        int time = 0;
-        for(String city : cities) {
-            city = city.toLowerCase();
-            boolean hit = false;
-            for(int i=0; i<cache.size(); i++){
-                if(cache.get(i).name.equals(city)) {
-                    cache.set(i, new City(city, time++));
-                    hit = true;
-                    break;
-                }
+        map = new HashMap<String, Integer>();
+        for(int i=1; i<=26; i++){
+            map.put((char)('A'+i-1)+"", i);
+        }
+        int number = 27;
+        System.out.println(map.keySet().toString());
+        String tmp = "";
+        for(char c : arr) {
+            tmp += c;
+            if(map.containsKey(tmp)) {
+                result.add(map.get(tmp));
+                continue;
             }
-            if(!hit) {
-                if(cache.size() == cacheSize) {
-                    Collections.sort(cache);
-                    cache.remove(0);
-                }
-                cache.add(new City(city, time));
-                time += 5;
+            else {
+                result.add(map.get(tmp.substring(0,tmp.length()-1)));
+                map.put(tmp, number++);
+                tmp = "";
             }
-
-
-
         }
-        return time;
-    }
-
-    static class City implements Comparable<City>{
-        String name;
-        int time;
-
-        public City(String name, int time) {
-            this.name = name;
-            this.time = time;
-        }
-
-        public int compareTo(City o) {
-            return this.time - o.time;
-        }
+        if(tmp.length()!=0) result.add(map.get(tmp));
+        answer = new int[result.size()];
+        for(int i=0; i<result.size(); i++) answer[i] = result.get(i);
+        return answer;
     }
 }
