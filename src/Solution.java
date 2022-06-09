@@ -1,96 +1,96 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
 /**
- [문자열, 자료구조, 이분탐색]
- => 이게왜... level2지...
- 문제요약 :
- 지원자 스펙에 따라서 쿼리에 해당하는 지원자의 수를 리턴해야한다.
- 쿼리에는 - 값으로 해당 칼럼에 있는 모든 지원자를 탐색해야함
+[문자열, 그리디?]
+
+문제요약 :
+ 광고를 재생시킬 최적 시각을 찾는 문제
+ 사용자들의 로그를 보고 광고를 최대한 많은 사용자가 볼 시각을 찾아라!!
 
  <solution>
- 쿼리를 실행할 떄마다 지원자를 탐색하기에는 시간이 부족하기 때문에
- 미리 지원자의 스펙을 Hash 형식으로 저장한다.
- 점수까지 저장하기에는 메모리가 부족할수 있으므로,
- 그전 조건까지만 저장
-
- 에로사항 :
- 1) 처음에 info를 저장할 때 -처리를 따로 두어서 query를 실행할 때 -를 만나면 쿼리를 해당 조건 수만큼 실행
- => 시간초과 발생, 코드가 너무길어지고 더러워진다, query에 해당하는 점수를 카운트할때 순차탐색으로 한것도 문제
-
- 1-1)info를 저장할 때 -를 아예 같이 저장시켜버리자!!
- => info의 크기가 커지지만 list의 길이가 상당히 길어질 수 있기 때문에 애초에 저장할 때 시간을 소비
- => info에 대해 '-'를 만날 수 있는 모든 경우를 넣어준다.
-
- 1-2) query에 해당하는 점수를 만족하는 개수를 카운트하기 위해서 이분탐색 실행
- => list이분탐색을 통해서 가능한 개수만 count
+ 시청자들의 로그를 일단 분석해서 자료 저장
+ 로그는 class를 만들어서 관리
+ 시간차이를 구할 때 시,분,초 데이터를 갖고 비교하는 것 보다는
+ 모두 초로 변환한 값으로 비교하는 것이 편리
 
  </solution>
-
-
-
-
  */
+
 class Solution {
-    private HashMap<String, ArrayList<Integer>> info;
-    private int count;
+    private String pt;
+    private String at;
+    private ArrayList<Log> logs;
 
-    public int[] solution(String[] infos, String[] queries) {
-        int[] answer = {};
-        ArrayList<Integer> result = new ArrayList<>();
-        initInfo(infos);
-        for(String query : queries)
-            result.add(querySplit(query));
-        answer = new int[queries.length];
-        for(int i=0; i<queries.length; i++)
-            answer[i] = result.get(i);
-        return answer;
+    public String solution(String play_time, String adv_time, String[] l) {
+        String answer = "";
+        pt = play_time;
+        at = adv_time;
+        logs = new ArrayList<Log>();
+
+        Log startPoint = new Log();
+        startPoint.st = "00:00:00";
+        startPoint.ssec = 0;
+        logs.add(startPoint);
+
+        int index = 0;
+        for(String log : l) {
+            StringTokenizer st = new StringTokenizer(log, "-");
+            Log lg = new Log();
+            lg.st = st.nextToken();
+            lg.et = st.nextToken();
+            lg.ssec = converToSecond(lg.st);
+            lg.esec = converToSecond(lg.et);
+            lg.runningTime = lg.esec - lg.ssec;
+            lg.index = index++;
+            logs.add(lg);
+        }
+        // 시작시간 기준으로 정렬
+        Collections.sort(logs);
+
+        int pts = converToSecond(play_time);
+        int ets = pts + converToSecond(adv_time);
+
+        long maxTotal = 0;
+        String startTime = "";
+        for(Log cmp : logs) {
+            int sad = cmp.ssec;
+            int ead = sad + converToSecond(adv_time);
+            long total = 0;
+            for(Log log : logs) {
+                if(log.esec < sad || log.ssec > ead) continue;
+                int startadv = Math.max(log.ssec, sad);
+                int endadv = Math.min(log.esec, ead);
+                total += endadv-startadv;
+            }
+            if(maxTotal < total) {
+                startTime = cmp.st;
+                maxTotal = total;
+            }
+        }
+
+        
+        
+        return startTime;
     }
 
-    private int querySplit(String query) {
-
-        count = 0;
-        query = query.replaceAll(" and ", "");
-        StringTokenizer st = new StringTokenizer(query, " ");
-        String str = st.nextToken();
-        queryExecute(str, Integer.parseInt(st.nextToken()));
-        return count;
+    private int converToSecond(String time) {
+        StringTokenizer st = new StringTokenizer(time, ":");
+        int h = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int s = Integer.parseInt(st.nextToken());
+        return h * 3600 + m * 60 + s;
     }
 
-    private void queryExecute(String key, int score) {
-        if(!info.containsKey(key)) return;
-        ArrayList<Integer> list = info.get(key);
-        int start=0, end = list.size()-1;
-        while(start<=end) {
-            int mid = (start+end)>>1;
-            if(list.get(mid) < score) start = mid+1;
-            else end = mid-1;
-        }
-        count = list.size()-start;
-    }
+    static class Log implements Comparable<Log> {
+        String st, et;
+        int index;
+        int ssec, esec, runningTime;
 
-    private void initInfo(String[] infos) {
-        info = new HashMap<String, ArrayList<Integer>>();
-        for(String in : infos ) {
-            StringTokenizer st = new StringTokenizer(in, " ");
-            ArrayList<String> i = new ArrayList<>();
-            while(st.hasMoreTokens())
-                i.add(st.nextToken());
-            addInfos(0, "", i);
+        @Override
+        public int compareTo(Log o) {
+            return this.ssec - o.ssec;
         }
-        for(ArrayList<Integer> value : info.values()) {
-            Collections.sort(value);
-        }
-    }
-
-    private void addInfos(int index, String key, ArrayList<String> q) {
-        // 기저조건
-        if(index == 4) {
-            int score = Integer.parseInt(q.get(index));
-            if(!info.containsKey(key)) info.put(key, new ArrayList<>());
-            info.get(key).add(score);
-            return;
-        }
-        addInfos(index+1, key+"-", q);
-        addInfos(index+1, key+q.get(index), q);
     }
 }
