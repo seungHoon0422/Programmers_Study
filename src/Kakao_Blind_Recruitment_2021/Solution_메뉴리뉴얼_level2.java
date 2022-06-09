@@ -1,3 +1,5 @@
+package Kakao_Blind_Recruitment_2021;
+
 import java.util.*;
 
 /**
@@ -17,7 +19,7 @@ course에 포함된 개수만큼 세트메뉴로 만들려고 한다.
 
  */
 
-class Solution {
+class Solution_메뉴리뉴얼_level2 {
     private HashMap<String, Integer> map;
 
     public String[] solution(String[] orders, int[] course) {
