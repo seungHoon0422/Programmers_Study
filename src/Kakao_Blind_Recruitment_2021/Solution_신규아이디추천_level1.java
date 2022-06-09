@@ -1,6 +1,6 @@
 package Kakao_Blind_Recruitment_2021;
 
-class Solution_신규아이디추천 {
+class Solution_신규아이디추천_level1 {
     public String solution(String id) {
         String answer = "";
 

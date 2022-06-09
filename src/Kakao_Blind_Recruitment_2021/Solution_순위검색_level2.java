@@ -1,4 +1,9 @@
-import java.util.*;
+package Kakao_Blind_Recruitment_2021;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  [문자열, 자료구조, 이분탐색]
@@ -30,7 +35,7 @@ import java.util.*;
 
 
  */
-class Solution {
+class Solution_순위검색_level2 {
     private HashMap<String, ArrayList<Integer>> info;
     private int count;
 
