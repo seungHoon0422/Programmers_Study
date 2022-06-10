@@ -1,3 +1,5 @@
+package Kakao_Blind_Recruitment_2020;
+
 /**
 2020 kakao blind recruit 문자열 압축 level 2
 
@@ -21,7 +23,7 @@
 
  */
 
-class Solution {
+class Solution_문자열압축_level2 {
     public int solution(String s) {
         int answer = 0;
         String ans = s;
