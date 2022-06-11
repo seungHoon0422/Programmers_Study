@@ -10,6 +10,7 @@ import java.util.ArrayList;
  key는 꼭 board안에서만 움직여야 하는게 아니라 board만 완전히 벗어나지 않으면 된다.
  0은 홈, 1은 돌기를 의미
 
+
 <solution>
  일단 key를 회전하기 위해서는, 배열 회전 알고리즘 필요
  근데 이문제에서는 key에 해당하는 배열을 모두 회전하기 보다
