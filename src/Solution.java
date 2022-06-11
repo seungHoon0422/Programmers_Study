@@ -1,70 +1,24 @@
 /**
-2020 kakao blind recruit 문자열 압축 level 2
-
-[투포인터, 문자열]
-
+[배열 회전]
 문제요약 :
-문자열이 주어졌을때 해당 문자열을 최대로 압축시켰을 때 길이를 리턴시킨다.
-반복되는 문자열의 경우에는 해당 문자열 앞에 숫자로 반복된 횟수를 적는 방식으로 압축시킨다.
+ key와 board가 주어졌을 때 주어진 키를 회전, 이동하여 board의 잠금을 풀 수 있는지 판단
+ key는 꼭 board안에서만 움직여야 하는게 아니라 board만 완전히 벗어나지 않으면 된다.
+ 0은 홈, 1은 돌기를 의미
 
 <solution>
- 주어진 문자열을 압축시킬 단위를 설정할 때 작은 단위부터 시작하기 보다
- 큰단위로 시작해서 최대로 압축시킬 수 있는 경우를 찾는다.
- 문자열을 압축시키기 위해서는 전체 문자열길이의 절반 길이부터 시작해서 탐색 시작
- 
- -- 생각보다 오류를 많이만남.... 문제를 잘읽자
- 처음부터 정해진 길이만큼 압축
- 문제를 너무 어렵게생각해서, 압축할 수 있는 거는 모두압축시켜버렸음...
- 정해진 길이만큼씩 잘라서 읽고, 안되면 그냥 추가해버리기
+ 일단 key를 회전하기 위해서는, 배열 회전 알고리즘 필요
+ 근데 이문제에서는 key에 해당하는 배열을 모두 회전하기 보다
+ 왼쪽 위의 좌표를 base좌표로 잡고, 돌기의 상대적이 위치를 저장시키는 방식으로 적용
+
+ 키의 돌기가 모두 홈에 들어가거나, board의 밖에 위치하는지 확인하고
+ board의 모든 홈이 키의 돌기와 만나는지 체크하는 방식으로 true를 확인한다.
+
  </solution>
 
-
  */
-
 class Solution {
-    public int solution(String s) {
-        int answer = 0;
-        String ans = s;
-        int unit = s.length()/2;
-
-        for(int i=unit; i>0; i--) {
-            int left = 0;
-            int right = i;
-            String after = "";
-            while(right < s.length()){
-                right = left + i;
-                int count = 1;
-                String substr = s.substring(left, left+i);
-                int nl = right;
-                int nr = nl + i;
-                while(nr <= s.length()) {
-                    String next = s.substring(nl, nr);
-                    if(substr.equals(next)) {
-                        count++;
-                        nl = nr;
-                        nr = nl+i;
-                    } else break;
-                }
-
-                if(count == 1) {
-                    after += s.substring(left, left+i);
-                    left += i;
-                    right = left + i;
-                } else {
-                    after += count + substr;
-                    left = nl;
-                    right = left + i;
-                }
-            }
-            after += s.substring(left);
-            if(left!=0 && after.length() < ans.length()){
-                ans = after;
-            }
-
-        }
-        return ans.length();
+    public boolean solution(int[][] key, int[][] lock) {
+        boolean answer = true;
+        return answer;
     }
 }
-// abcabcdededededede
-// abcabc6de
-// 9
