@@ -1,3 +1,5 @@
+package Kakao_Blind_Recruitment_2020;
+
 import java.util.ArrayList;
 
 /**
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  3,0 -> 0,1
 
  */
-class Solution {
+class Solution_자물쇠와열쇠_level3 {
     private int N;
     private int M;
 
