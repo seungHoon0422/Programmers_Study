@@ -1,10 +1,11 @@
+package Kakao_Blind_Recruitment_2020;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Solution {
+class Solution_가사검색_level4 {
     private HashMap<Integer, ArrayList<String>> map;
 
     public int[] solution(String[] words, String[] queries) {
