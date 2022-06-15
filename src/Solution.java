@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 class Solution {
     private HashMap<Integer, ArrayList<String>> map;
 
+
     public int[] solution(String[] words, String[] queries) {
         int[] answer = new int[queries.length];
         map = new HashMap<Integer, ArrayList<String>>();
