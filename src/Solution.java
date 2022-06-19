@@ -15,6 +15,7 @@ class Solution {
             if(!map.containsKey(word.length())) map.put(word.length(), new ArrayList<>());
             map.get(word.length()).add(word);
         }
+
         int index = 0;
         for(String query : queries) {
             query = query.replaceAll("[?]", ".");
