@@ -52,8 +52,6 @@ class Solution_신고결과받기_level1 {
             for (String callee : hashSet) {
                 count.put(callee, count.get(callee)+1);
             }
-
-
         }
 
         for(int i=0; i<N; i++) {
@@ -63,8 +61,6 @@ class Solution_신고결과받기_level1 {
             }
 
         }
-
-        // 2. 신고한 사람 리스트를 돌면서 각 유저가 신고를 몇번 받았나 카운트
 
 
 

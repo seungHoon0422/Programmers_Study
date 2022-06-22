@@ -35,7 +35,7 @@ class Solution_양과늑대_level3 {
         if(info[index]==0) sheep++;
         else wolf++;
 
-        if(wolf >= sheep) return;
+        if(wolf == sheep) return;
         answer = Math.max(answer, sheep);
 
         ArrayList<Integer> next = new ArrayList<>(nextPos);

@@ -31,7 +31,6 @@ class Solution_k진수에서소수개수구하기_level2 {
         while(st.hasMoreTokens()){
             String number = st.nextToken();
             if(isPrime(Long.parseLong(number))) answer++;
-
         }
         return answer;
     }
