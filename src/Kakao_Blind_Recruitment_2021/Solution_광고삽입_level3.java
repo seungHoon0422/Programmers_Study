@@ -39,9 +39,9 @@ class Solution_광고삽입_level3 {
             }
         }
 
-        int max_idx=0;
-        long max_sum=0;
-        long sum =0;
+        int max_idx = 0;
+        long max_sum = 0;
+        long sum = 0;
         for(int i=0; i<at; i++) {
             sum += time[i];
         }

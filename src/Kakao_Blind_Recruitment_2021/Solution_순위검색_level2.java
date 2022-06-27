@@ -73,6 +73,10 @@ class Solution_순위검색_level2 {
         count = list.size()-start;
     }
 
+    /**
+     * 초기 info 데이터 저장, - 까지 모두 포함시켜서 저장한다.
+     * @param infos
+     */
     private void initInfo(String[] infos) {
         info = new HashMap<String, ArrayList<Integer>>();
         for(String in : infos ) {
@@ -82,6 +86,8 @@ class Solution_순위검색_level2 {
                 i.add(st.nextToken());
             addInfos(0, "", i);
         }
+
+        // 이분탐색 진행을 위한 모든 score 오름차순 정렬
         for(ArrayList<Integer> value : info.values()) {
             Collections.sort(value);
         }
